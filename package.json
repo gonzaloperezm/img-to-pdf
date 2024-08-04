@@ -1,0 +1,23 @@
+{
+  "name": "img-to-pdf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Gonzalo Perez Agrasar github.com/gonzaloperezm",
+  "license": "ISC",
+  "description": "An API made with NodeJS to convert images to PDF",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.4",
+    "pdfkit": "^0.15.0",
+    "zod": "3.23.8"
+  }
+}
