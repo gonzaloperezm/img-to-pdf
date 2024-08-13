@@ -4,8 +4,7 @@ export const corsMiddelware = () =>cors({
     const ACCEPTED_ORIGINS = [
       'http://localhost:4321',
       'http://localhost:1234',
-      'https://movies.com',
-      'https://midu.dev'
+      'null'
     ]
 
     if (ACCEPTED_ORIGINS.includes(origin)) {

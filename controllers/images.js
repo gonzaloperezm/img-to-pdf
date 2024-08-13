@@ -8,14 +8,20 @@ const __dirname = path.dirname(__filename);
 
 export const convertImageToPDF = (req, res) => {
   if (!req.file) {
+    console.log('No file received.');
     return res.status(400).send({ message: 'Por favor suba una imagen.' });
   }
 
   const imagePath = req.file.path;
   const pdfPath = path.join(__dirname, '../uploads', `${Date.now()}.pdf`);
 
+  console.log('Generating PDF...');
+
   const doc = new PDFDocument();
-  doc.pipe(fs.createWriteStream(pdfPath));
+  const writeStream = fs.createWriteStream(pdfPath);
+  
+  doc.pipe(writeStream);
+  
   doc.image(imagePath, {
     fit: [500, 500],
     align: 'center',
@@ -23,13 +29,21 @@ export const convertImageToPDF = (req, res) => {
   });
   doc.end();
 
-  doc.on('finish', () => {
+  writeStream.on('finish', () => {
+    console.log('PDF generated successfully.');
     res.download(pdfPath, err => {
       if (err) {
-        res.status(500).send({ message: 'Error al descargar el PDF.' });
+        console.error('Error downloading PDF:', err);
+        return res.status(500).send({ message: 'Error al descargar el PDF.' });
       }
+      // Cleanup files after download
       fs.unlinkSync(imagePath);
       fs.unlinkSync(pdfPath);
     });
+  });
+
+  writeStream.on('error', (err) => {
+    console.error('Error generating PDF:', err);
+    res.status(500).send({ message: 'Error al generar el PDF.' });
   });
 };
