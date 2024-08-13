@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 export const convertImageToPDF = (req, res) => {
   if (!req.file) {
     console.log('No file received.');
-    return res.status(400).send({ message: 'Por favor suba una imagen.' });
+    return res.status(400).send({ message: 'Upload an image file' });
   }
 
   const imagePath = req.file.path;
@@ -34,9 +34,8 @@ export const convertImageToPDF = (req, res) => {
     res.download(pdfPath, err => {
       if (err) {
         console.error('Error downloading PDF:', err);
-        return res.status(500).send({ message: 'Error al descargar el PDF.' });
+        return res.status(500).send({ message: 'Error downloading PDF.' });
       }
-      // Cleanup files after download
       fs.unlinkSync(imagePath);
       fs.unlinkSync(pdfPath);
     });
@@ -44,6 +43,6 @@ export const convertImageToPDF = (req, res) => {
 
   writeStream.on('error', (err) => {
     console.error('Error generating PDF:', err);
-    res.status(500).send({ message: 'Error al generar el PDF.' });
+    res.status(500).send({ message: 'Error generating PDF.' });
   });
 };

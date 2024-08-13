@@ -10,7 +10,7 @@ app.use(express.json());
 app.disable("x-powered-by");
 
 app.get("/", (req, res) => {
-  res.send({ message: "Hello World!" });
+  res.send({ message: "API is running" });
 });
 
 app.use('/api/images', imageRouter);

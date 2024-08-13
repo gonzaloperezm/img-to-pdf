@@ -4,7 +4,8 @@ export const corsMiddelware = () =>cors({
     const ACCEPTED_ORIGINS = [
       'http://localhost:4321',
       'http://localhost:1234',
-      'null'
+      'null',
+      '*'
     ]
 
     if (ACCEPTED_ORIGINS.includes(origin)) {
