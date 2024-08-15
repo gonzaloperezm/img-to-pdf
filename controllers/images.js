@@ -6,13 +6,12 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const convertImageToPDF = (req, res) => {
-  if (!req.file) {
-    console.log('No file received.');
-    return res.status(400).send({ message: 'Upload an image file' });
+export const convertImagesToPDF = (req, res) => {
+  if (!req.files || req.files.length === 0) {
+    console.log('No files received.');
+    return res.status(400).send({ message: 'Please upload at least one image.' });
   }
 
-  const imagePath = req.file.path;
   const pdfPath = path.join(__dirname, '../uploads', `${Date.now()}.pdf`);
 
   console.log('Generating PDF...');
@@ -21,12 +20,21 @@ export const convertImageToPDF = (req, res) => {
   const writeStream = fs.createWriteStream(pdfPath);
   
   doc.pipe(writeStream);
-  
-  doc.image(imagePath, {
-    fit: [500, 500],
-    align: 'center',
-    valign: 'center'
+
+  req.files.forEach((file, index) => {
+    const imagePath = file.path;
+    
+    if (index !== 0) {
+      doc.addPage();
+    }
+
+    doc.image(imagePath, {
+      fit: [500, 500],
+      align: 'center',
+      valign: 'center'
+    });
   });
+
   doc.end();
 
   writeStream.on('finish', () => {
@@ -36,8 +44,9 @@ export const convertImageToPDF = (req, res) => {
         console.error('Error downloading PDF:', err);
         return res.status(500).send({ message: 'Error downloading PDF.' });
       }
-      fs.unlinkSync(imagePath);
-      fs.unlinkSync(pdfPath);
+      
+      req.files.forEach(file => fs.unlinkSync(file.path));
+      fs.unlinkSync(pdfPath); 
     });
   });
 

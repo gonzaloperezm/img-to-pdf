@@ -2,3 +2,4 @@ node_modules
 api.http
 uploads/*
 !uploads/.gitkeep
+index.html

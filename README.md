@@ -17,21 +17,21 @@ To set up the project locally, follow these steps:
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/yourusername/image-to-pdf-api.git
-   cd image-to-pdf-api
+  ```bash
+  git clone https://github.com/yourusername/image-to-pdf-api.git
+  cd image-to-pdf-api
 
 2. Install dependencies:
 
-   ``` bash
-    npm install
-   ``` 
+  ``` bash
+  npm install
+  ``` 
 
 3. Start the server:
 
-   ```  bash
-   npm start
-   ``` 
+  ```  bash
+  npm start
+  ``` 
 
 By default, the server will start on port 4321. You can change the port by setting the PORT environment variable.
 

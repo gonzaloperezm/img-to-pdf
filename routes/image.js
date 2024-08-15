@@ -1,7 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { convertImageToPDF } from '../controllers/images.js';
-
+import { convertImagesToPDF } from '../controllers/images.js';
 
 const router = express.Router();
 
@@ -16,6 +15,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/', upload.single('image'), convertImageToPDF);
+router.post('/', upload.array('images'), convertImagesToPDF);
 
 export default router;

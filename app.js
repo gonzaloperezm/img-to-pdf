@@ -3,7 +3,7 @@ import { corsMiddelware } from './middleware/cors.js';
 import imageRouter from './routes/image.js';
 
 const app = express();
-const PORT = process.env.PORT || 4321;
+const PORT = process.env.PORT || 1234;
 
 app.use(corsMiddelware());
 app.use(express.json());
