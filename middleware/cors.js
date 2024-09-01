@@ -6,7 +6,8 @@ export const corsMiddelware = () => cors({
       'http://localhost:4321',
       'http://localhost:1234',
       'http://localhost:5173',
-      'https://img-to-pdf-j9ul.onrender.com'
+      'https://img-to-pdf-j9ul.onrender.com',
+      'https://pwa-img-to-pdf.onrender.com'
     ];
 
     if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
